@@ -11,6 +11,9 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong,nonatomic)  NSMutableArray *contactArray;
+@property (nonatomic, assign)  int selectedContact;
+
 
 
 @end

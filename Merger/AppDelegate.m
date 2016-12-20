@@ -13,10 +13,26 @@
 @end
 
 @implementation AppDelegate
-
+@synthesize contactArray,selectedContact;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    selectedContact = 0;
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://contacts-8d05b.firebaseio.com/.json"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+                                      {
+                                          if ([data length] > 0 && error == nil)
+                                          {
+                                                  self.contactArray = [[[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error] objectForKey:@"d"] objectForKey:@"results"];
+                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"didReceiveData" object:nil];
+                                          }
+                                          
+                                      }];
+
+    [dataTask resume];
     return YES;
 }
 

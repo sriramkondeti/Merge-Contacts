@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ContactTableViewController.h
 //  Merger
 //
 //  Created by Sri Ram on 12/20/16.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface ContactTableViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource>
 
 @end
-

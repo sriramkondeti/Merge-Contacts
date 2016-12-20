@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		802BC84F1E0937BA00F1A650 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC84E1E0937BA00F1A650 /* main.m */; };
 		802BC8521E0937BA00F1A650 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC8511E0937BA00F1A650 /* AppDelegate.m */; };
-		802BC8551E0937BA00F1A650 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC8541E0937BA00F1A650 /* ViewController.m */; };
 		802BC8581E0937BA00F1A650 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 802BC8561E0937BA00F1A650 /* Main.storyboard */; };
 		802BC85A1E0937BA00F1A650 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 802BC8591E0937BA00F1A650 /* Assets.xcassets */; };
 		802BC85D1E0937BA00F1A650 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 802BC85B1E0937BA00F1A650 /* LaunchScreen.storyboard */; };
+		802BC8661E09380900F1A650 /* ContactTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC8651E09380900F1A650 /* ContactTableViewController.m */; };
+		802BC8A11E094BAE00F1A650 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC8A01E094BAE00F1A650 /* DetailsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +21,14 @@
 		802BC84E1E0937BA00F1A650 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		802BC8501E0937BA00F1A650 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		802BC8511E0937BA00F1A650 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		802BC8531E0937BA00F1A650 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		802BC8541E0937BA00F1A650 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		802BC8571E0937BA00F1A650 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		802BC8591E0937BA00F1A650 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		802BC85C1E0937BA00F1A650 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		802BC85E1E0937BA00F1A650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		802BC8641E09380900F1A650 /* ContactTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewController.h; sourceTree = "<group>"; };
+		802BC8651E09380900F1A650 /* ContactTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewController.m; sourceTree = "<group>"; };
+		802BC89F1E094BAE00F1A650 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		802BC8A01E094BAE00F1A650 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +63,11 @@
 			children = (
 				802BC8501E0937BA00F1A650 /* AppDelegate.h */,
 				802BC8511E0937BA00F1A650 /* AppDelegate.m */,
-				802BC8531E0937BA00F1A650 /* ViewController.h */,
-				802BC8541E0937BA00F1A650 /* ViewController.m */,
 				802BC8561E0937BA00F1A650 /* Main.storyboard */,
+				802BC89F1E094BAE00F1A650 /* DetailsViewController.h */,
+				802BC8A01E094BAE00F1A650 /* DetailsViewController.m */,
+				802BC8641E09380900F1A650 /* ContactTableViewController.h */,
+				802BC8651E09380900F1A650 /* ContactTableViewController.m */,
 				802BC8591E0937BA00F1A650 /* Assets.xcassets */,
 				802BC85B1E0937BA00F1A650 /* LaunchScreen.storyboard */,
 				802BC85E1E0937BA00F1A650 /* Info.plist */,
@@ -151,9 +156,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				802BC8551E0937BA00F1A650 /* ViewController.m in Sources */,
 				802BC8521E0937BA00F1A650 /* AppDelegate.m in Sources */,
+				802BC8661E09380900F1A650 /* ContactTableViewController.m in Sources */,
 				802BC84F1E0937BA00F1A650 /* main.m in Sources */,
+				802BC8A11E094BAE00F1A650 /* DetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
