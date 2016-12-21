@@ -10,5 +10,7 @@
 
 @interface MergeViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
+@property (weak, nonatomic) IBOutlet UILabel *lblAccountNo;
+@property (weak, nonatomic) IBOutlet UIImageView *avatar;
 
 @end

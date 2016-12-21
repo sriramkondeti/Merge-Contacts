@@ -8,6 +8,7 @@
 
 #import "MergeViewController.h"
 #import "AppDelegate.h"
+#import "MergeTableViewCell.h"
 
 @interface MergeViewController ()
 {
@@ -22,6 +23,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    temp = [delegate.contactArray objectAtIndex:delegate.selectedContact];
+    _lblAccountNo.text = [temp objectForKey:@"Account"];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *url = [NSURL URLWithString:[temp objectForKey:@"PictureThumbnailUrl"]];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        UIImage* image = [[UIImage alloc]initWithData:data];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_avatar setImage:image];
+        });
+    });
+    
     // Do any additional setup after loading the view.
 }
 
@@ -39,7 +52,7 @@
 {
     
     
-    return delegate.contactArray.count ;
+    return temp.allKeys.count ;
 }
 
 
@@ -63,15 +76,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MergeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[MergeTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    temp = [delegate.contactArray objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [temp objectForKey:@"FullName"]?[temp objectForKey:@"FullName"]:[temp objectForKey:@"FirstName"];
-    
+    cell.lblTitle.text = [[temp allKeys]objectAtIndex:indexPath.row];
+    cell.lblValue.text = [[temp allValues]objectAtIndex:indexPath.row];
     return cell;
 }
 

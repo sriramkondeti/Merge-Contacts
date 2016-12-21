@@ -15,6 +15,9 @@
 		802BC8661E09380900F1A650 /* ContactTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC8651E09380900F1A650 /* ContactTableViewController.m */; };
 		802BC8A11E094BAE00F1A650 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC8A01E094BAE00F1A650 /* DetailsViewController.m */; };
 		802BC8A41E09614B00F1A650 /* MergeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC8A31E09614B00F1A650 /* MergeViewController.m */; };
+		802BC95D1E0A8D9000F1A650 /* MergeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC95C1E0A8D9000F1A650 /* MergeTableViewCell.m */; };
+		802BC9601E0A949800F1A650 /* minus-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 802BC95E1E0A949800F1A650 /* minus-26.png */; };
+		802BC9611E0A949800F1A650 /* minus-26@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 802BC95F1E0A949800F1A650 /* minus-26@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,10 @@
 		802BC8A01E094BAE00F1A650 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		802BC8A21E09614B00F1A650 /* MergeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MergeViewController.h; sourceTree = "<group>"; };
 		802BC8A31E09614B00F1A650 /* MergeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MergeViewController.m; sourceTree = "<group>"; };
+		802BC95B1E0A8D9000F1A650 /* MergeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MergeTableViewCell.h; sourceTree = "<group>"; };
+		802BC95C1E0A8D9000F1A650 /* MergeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MergeTableViewCell.m; sourceTree = "<group>"; };
+		802BC95E1E0A949800F1A650 /* minus-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "minus-26.png"; sourceTree = "<group>"; };
+		802BC95F1E0A949800F1A650 /* minus-26@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "minus-26@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +74,8 @@
 				802BC8501E0937BA00F1A650 /* AppDelegate.h */,
 				802BC8511E0937BA00F1A650 /* AppDelegate.m */,
 				802BC8561E0937BA00F1A650 /* Main.storyboard */,
+				802BC95B1E0A8D9000F1A650 /* MergeTableViewCell.h */,
+				802BC95C1E0A8D9000F1A650 /* MergeTableViewCell.m */,
 				802BC89F1E094BAE00F1A650 /* DetailsViewController.h */,
 				802BC8A01E094BAE00F1A650 /* DetailsViewController.m */,
 				802BC8641E09380900F1A650 /* ContactTableViewController.h */,
@@ -84,6 +93,8 @@
 		802BC84D1E0937BA00F1A650 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				802BC95E1E0A949800F1A650 /* minus-26.png */,
+				802BC95F1E0A949800F1A650 /* minus-26@2x.png */,
 				802BC84E1E0937BA00F1A650 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -148,6 +159,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				802BC9601E0A949800F1A650 /* minus-26.png in Resources */,
+				802BC9611E0A949800F1A650 /* minus-26@2x.png in Resources */,
 				802BC85D1E0937BA00F1A650 /* LaunchScreen.storyboard in Resources */,
 				802BC85A1E0937BA00F1A650 /* Assets.xcassets in Resources */,
 				802BC8581E0937BA00F1A650 /* Main.storyboard in Resources */,
@@ -165,6 +178,7 @@
 				802BC8661E09380900F1A650 /* ContactTableViewController.m in Sources */,
 				802BC84F1E0937BA00F1A650 /* main.m in Sources */,
 				802BC8A41E09614B00F1A650 /* MergeViewController.m in Sources */,
+				802BC95D1E0A8D9000F1A650 /* MergeTableViewCell.m in Sources */,
 				802BC8A11E094BAE00F1A650 /* DetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
