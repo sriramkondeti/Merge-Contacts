@@ -46,7 +46,6 @@
     });
 }
 
-#pragma mark - TableView
 
 
 #pragma mark - Table view data source
@@ -91,8 +90,8 @@
     }
     temp = [delegate.contactArray objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [temp objectForKey:@"FullName"]?[temp objectForKey:@"FullName"]:[temp objectForKey:@"FirstName"];
-    
+    cell.detailTextLabel.text = [temp objectForKey:@"FullName"]?[temp objectForKey:@"FullName"]:[temp objectForKey:@"FirstName"];
+    cell.textLabel.text = [temp objectForKey:@"Account"];
     return cell;
 }
 
@@ -100,7 +99,6 @@
 {
     delegate.selectedContact = (int)indexPath.row;
 }
-
 
 /*
 #pragma mark - Navigation

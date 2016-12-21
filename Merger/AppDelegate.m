@@ -18,6 +18,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+
     selectedContact = 0;
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://contacts-8d05b.firebaseio.com/.json"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
     NSURLSession *session = [NSURLSession sharedSession];

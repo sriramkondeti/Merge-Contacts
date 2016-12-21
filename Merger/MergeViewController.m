@@ -1,50 +1,35 @@
 //
-//  DetailsViewController.m
+//  MergeViewController.m
 //  Merger
 //
 //  Created by Sri Ram on 12/20/16.
 //  Copyright © 2016 Sri Ram. All rights reserved.
 //
 
-#import "DetailsViewController.h"
+#import "MergeViewController.h"
 #import "AppDelegate.h"
-@interface DetailsViewController ()
-{
-    AppDelegate *delegate ;
-    NSMutableArray *mergableContactArr;
-    NSMutableDictionary *temp;
 
+@interface MergeViewController ()
+{
+    AppDelegate *delegate;
+    NSMutableDictionary *temp;
 }
+
 @end
 
-@implementation DetailsViewController
-@synthesize detailsTextview;
+@implementation MergeViewController
+@synthesize tableview;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSMutableDictionary *dict =temp = [NSMutableDictionary dictionary];
-    mergableContactArr = [NSMutableArray array];
-    dict = [delegate.contactArray objectAtIndex:delegate.selectedContact];
-    NSArray *keyArray = [dict allKeys];
-    for (int i=0; i<keyArray.count ; i++) {
-        if (![[keyArray objectAtIndex:i] isEqual:@"PictureThumbnailUrl"] && ![[keyArray objectAtIndex:i] isEqual:@"ID"] ) {
-        detailsTextview.text = [NSString stringWithFormat:@"%@%@ : %@\n\n", detailsTextview.text, [keyArray objectAtIndex:i],[dict objectForKey:[keyArray objectAtIndex:i]]];
-        }
-    }
-    for (int i=0; i<delegate.contactArray.count; i++) {
-        if (i!=delegate.selectedContact) {
-            
-            temp = [delegate.contactArray objectAtIndex:i];
-            if ([[temp objectForKey:@"Account"] isEqual:[dict objectForKey:@"Account"]] ) {
-                [mergableContactArr addObject:temp];
-            }
-        }
-    }
-    
-    
-
+    delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    // Do any additional setup after loading the view.
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -54,7 +39,7 @@
 {
     
     
-    return mergableContactArr.count ;
+    return delegate.contactArray.count ;
 }
 
 
@@ -75,7 +60,6 @@
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
@@ -84,20 +68,17 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    temp = [mergableContactArr objectAtIndex:indexPath.row];
+    temp = [delegate.contactArray objectAtIndex:indexPath.row];
     
-    cell.detailTextLabel.text = [temp objectForKey:@"FullName"]?[temp objectForKey:@"FullName"]:[temp objectForKey:@"FirstName"];
-    cell.textLabel.text = [temp objectForKey:@"Account"];
+    cell.textLabel.text = [temp objectForKey:@"FullName"]?[temp objectForKey:@"FullName"]:[temp objectForKey:@"FirstName"];
+    
     return cell;
 }
 
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    delegate.selectedContact = (int)indexPath.row;
 }
-
 /*
 #pragma mark - Navigation
 

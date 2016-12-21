@@ -14,6 +14,7 @@
 		802BC85D1E0937BA00F1A650 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 802BC85B1E0937BA00F1A650 /* LaunchScreen.storyboard */; };
 		802BC8661E09380900F1A650 /* ContactTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC8651E09380900F1A650 /* ContactTableViewController.m */; };
 		802BC8A11E094BAE00F1A650 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC8A01E094BAE00F1A650 /* DetailsViewController.m */; };
+		802BC8A41E09614B00F1A650 /* MergeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC8A31E09614B00F1A650 /* MergeViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		802BC8651E09380900F1A650 /* ContactTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewController.m; sourceTree = "<group>"; };
 		802BC89F1E094BAE00F1A650 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		802BC8A01E094BAE00F1A650 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		802BC8A21E09614B00F1A650 /* MergeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MergeViewController.h; sourceTree = "<group>"; };
+		802BC8A31E09614B00F1A650 /* MergeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MergeViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,8 @@
 				802BC8A01E094BAE00F1A650 /* DetailsViewController.m */,
 				802BC8641E09380900F1A650 /* ContactTableViewController.h */,
 				802BC8651E09380900F1A650 /* ContactTableViewController.m */,
+				802BC8A21E09614B00F1A650 /* MergeViewController.h */,
+				802BC8A31E09614B00F1A650 /* MergeViewController.m */,
 				802BC8591E0937BA00F1A650 /* Assets.xcassets */,
 				802BC85B1E0937BA00F1A650 /* LaunchScreen.storyboard */,
 				802BC85E1E0937BA00F1A650 /* Info.plist */,
@@ -159,6 +164,7 @@
 				802BC8521E0937BA00F1A650 /* AppDelegate.m in Sources */,
 				802BC8661E09380900F1A650 /* ContactTableViewController.m in Sources */,
 				802BC84F1E0937BA00F1A650 /* main.m in Sources */,
+				802BC8A41E09614B00F1A650 /* MergeViewController.m in Sources */,
 				802BC8A11E094BAE00F1A650 /* DetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
