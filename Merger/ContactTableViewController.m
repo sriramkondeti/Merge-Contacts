@@ -8,10 +8,10 @@
 
 #import "AppDelegate.h"
 #import "ContactTableViewController.h"
-
+#import "MBProgressHUD.h"
 @interface ContactTableViewController () {
   AppDelegate *delegate;
-  NSMutableDictionary *temp;
+  NSMutableDictionary *contactDict;
 }
 @end
 
@@ -19,9 +19,10 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-
+  
+  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
   delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-  temp = [NSMutableDictionary dictionary];
+  contactDict = [NSMutableDictionary dictionary];
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(didReceiveData)
                                                name:@"didReceiveData"
@@ -44,6 +45,7 @@
   dispatch_async(dispatch_get_main_queue(), ^{
 
     [self.tableView reloadData];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
   });
 }
 
@@ -52,68 +54,60 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   return 1;
 }
-- (NSInteger)tableView:(UITableView *)tableView
-    numberOfRowsInSection:(NSInteger)section {
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   return delegate.contactArray.count;
 }
 
-- (void)tableView:(UITableView *)tableView
-      willDisplayCell:(UITableViewCell *)cell
-    forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
   // Remove seperator inset
   if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-    [cell setSeparatorInset:UIEdgeInsetsZero];
+      [cell setSeparatorInset:UIEdgeInsetsZero];
   }
 
   // Prevent the cell from inheriting the Table View's margin settings
-  if ([cell
-          respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
-    [cell setPreservesSuperviewLayoutMargins:NO];
+  if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+      [cell setPreservesSuperviewLayoutMargins:NO];
   }
 
   // Explictly set your cell's layout margins
   if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-    [cell setLayoutMargins:UIEdgeInsetsZero];
+      [cell setLayoutMargins:UIEdgeInsetsZero];
   }
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
-  UITableViewCell *cell =
-      [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-  if (cell == nil) {
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                  reuseIdentifier:CellIdentifier];
-  }
-  temp = [delegate.contactArray objectAtIndex:indexPath.row];
-   
-  cell.textLabel.text =
-      [[temp objectForKey:@"FullName"] objectAtIndex:0]
-          ? [[temp objectForKey:@"FullName"] objectAtIndex:0]
-          : [[temp objectForKey:@"FirstName"] objectAtIndex:0];
-  cell.detailTextLabel.text = [[temp objectForKey:@"Account"] objectAtIndex:0];
-    cell.imageView.image = [UIImage imageNamed:@"Contacts-icon.png"];
-    NSURL *url = [NSURL URLWithString:[[temp objectForKey:@"PictureThumbnailUrl"] objectAtIndex:0]];
-    NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  if (cell == nil)
+  cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+  contactDict = [delegate.contactArray objectAtIndex:indexPath.row];
+  cell.textLabel.text = [[contactDict objectForKey:@"FullName"] objectAtIndex:0] ? [[contactDict objectForKey:@"FullName"] objectAtIndex:0] : [[contactDict objectForKey:@"FirstName"] objectAtIndex:0];
+  cell.detailTextLabel.text = [[contactDict objectForKey:@"Account"] objectAtIndex:0];
+  cell.imageView.image = [UIImage imageNamed:@"Contacts-icon.png"];
+  NSURL *url = [NSURL URLWithString:[[contactDict objectForKey:@"PictureThumbnailUrl"] objectAtIndex:0]];
+  NSURLSessionTask *task = [[NSURLSession sharedSession]
+        dataTaskWithURL:url
+      completionHandler:^(NSData *_Nullable data,
+                          NSURLResponse *_Nullable response,
+                          NSError *_Nullable error) {
         if (data) {
-            UIImage *image = [UIImage imageWithData:data];
-            if (image) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
-                    if (updateCell)
-                        updateCell.imageView.image = image;
-                });
-            }
+          UIImage *image = [UIImage imageWithData:data];
+          if (image) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+              UITableViewCell *updateCell =
+                  (id)[tableView cellForRowAtIndexPath:indexPath];
+              if (updateCell)
+                updateCell.imageView.image = image;
+            });
+          }
         }
-    }];
-    [task resume];
-    return cell;
+      }];
+  [task resume];
+  return cell;
 }
 
-- (void)tableView:(UITableView *)tableView
-    didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   delegate.selectedContact = (int)indexPath.row;
 }
 

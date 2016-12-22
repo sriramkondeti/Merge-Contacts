@@ -17,21 +17,36 @@
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // Override point for customization after application launch.
-    //Global Apperance
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:35.0f/255.0f green:180.0f/255.0f blue:234.0f/255.0f alpha:1.000]];
-    
-    //Navigation Bar - Title Color and Font Size
-    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,[UIFont fontWithName:@"Helvetica-Bold" size:18.0f], NSFontAttributeName, nil]];
-    
-    //Navigation Bar - BarButtonItem Color
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    
-    //UIBarButtonItem - Color and Font Size
-    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                          [UIColor whiteColor], NSForegroundColorAttributeName,
-                                                          [UIFont fontWithName:@"Helvetica-Bold" size:14.0f],
-                                                          NSFontAttributeName,
-                                                          nil] forState:UIControlStateNormal];
+  // Global Apperance
+  [[UINavigationBar appearance]
+      setBarTintColor:[UIColor colorWithRed:35.0f / 255.0f
+                                      green:180.0f / 255.0f
+                                       blue:234.0f / 255.0f
+                                      alpha:1.000]];
+
+  // Navigation Bar - Title Color and Font Size
+  [[UINavigationBar appearance]
+      setTitleTextAttributes:[NSDictionary
+                                 dictionaryWithObjectsAndKeys:
+                                     [UIColor whiteColor],
+                                     NSForegroundColorAttributeName,
+                                     [UIFont fontWithName:@"Helvetica-Bold"
+                                                     size:18.0f],
+                                     NSFontAttributeName, nil]];
+
+  // Navigation Bar - BarButtonItem Color
+  [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+
+  // UIBarButtonItem - Color and Font Size
+  [[UIBarButtonItem appearance]
+      setTitleTextAttributes:[NSDictionary
+                                 dictionaryWithObjectsAndKeys:
+                                     [UIColor whiteColor],
+                                     NSForegroundColorAttributeName,
+                                     [UIFont fontWithName:@"Helvetica-Bold"
+                                                     size:14.0f],
+                                     NSFontAttributeName, nil]
+                    forState:UIControlStateNormal];
   selectedContact = 0;
   self.contactArray = [NSMutableArray array];
   NSURLRequest *request = [NSURLRequest
@@ -40,46 +55,42 @@
           cachePolicy:NSURLRequestUseProtocolCachePolicy
       timeoutInterval:5.0];
   NSURLSession *session = [NSURLSession sharedSession];
-  NSURLSessionDataTask *dataTask = [session
+  NSURLSessionDataTask* dataTask = [session
       dataTaskWithRequest:request
-        completionHandler:^(NSData *data, NSURLResponse *response,
-                            NSError *error) {
-          if ([data length] > 0 && error == nil) {
-            NSMutableArray *resultArr = [[NSMutableArray alloc] init];
-            resultArr = [[[NSJSONSerialization
-                JSONObjectWithData:data
-                           options:NSJSONReadingAllowFragments
-                             error:&error] objectForKey:@"d"]
-                objectForKey:@"results"];
+        completionHandler:^(NSData* data, NSURLResponse* response,
+            NSError* error) {
+            if ([data length] > 0 && error == nil) {
+                NSMutableArray* resultArr = [[NSMutableArray alloc] init];
+                resultArr = [[[NSJSONSerialization
+                    JSONObjectWithData:data
+                               options:NSJSONReadingAllowFragments
+                                 error:&error] objectForKey:@"d"]
+                    objectForKey:@"results"];
 
-            for (int j = 0; j < resultArr.count; j++) {
-              NSMutableDictionary *dict = [[NSMutableDictionary alloc]
-                  initWithDictionary:[resultArr objectAtIndex:j]];
-              for (int i = 0; i < [[dict allKeys] count]; i++) {
+                for (int j = 0; j < resultArr.count; j++) {
+                    NSMutableDictionary* dict = [[NSMutableDictionary alloc]
+                        initWithDictionary:[resultArr objectAtIndex:j]];
+                    for (int i = 0; i < [[dict allKeys] count]; i++) {
 
-                [dict
-                    setObject:[[NSMutableArray alloc]
-                                  initWithObjects:
-                                      [dict objectForKey:[[dict allKeys]
-                                                             objectAtIndex:i]],
-                                      nil]
-                       forKey:[[dict allKeys] objectAtIndex:i]];
-              }
-              [self.contactArray addObject:dict];
+                        [dict setObject:[[NSMutableArray alloc] initWithObjects:
+                                              [dict objectForKey:[[dict allKeys]
+                                                                     objectAtIndex:i]],
+                                          nil]
+                               forKey:[[dict allKeys] objectAtIndex:i]];
+                    }
+                    [self.contactArray addObject:dict];
+                }
+
+                [[NSNotificationCenter defaultCenter]
+                    postNotificationName:@"didReceiveData"
+                                  object:nil];
             }
-
-            [[NSNotificationCenter defaultCenter]
-                postNotificationName:@"didReceiveData"
-                              object:nil];
-          }
 
         }];
 
   [dataTask resume];
   return YES;
 }
-
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
   // Sent when the application is about to move from active to inactive state.

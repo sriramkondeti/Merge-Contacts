@@ -51,6 +51,9 @@
 		80648D251E0BF086000D2921 /* Launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 80648D241E0BF086000D2921 /* Launch.png */; };
 		80648D271E0BF28B000D2921 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80648D261E0BF28B000D2921 /* LaunchScreen.storyboard */; };
 		80648D311E0BF75F000D2921 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80648D301E0BF75F000D2921 /* CoreGraphics.framework */; };
+		80B97D5A1E0C1E7600576C24 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B97D591E0C1E7600576C24 /* MBProgressHUD.m */; };
+		80B97D5C1E0C1EA300576C24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B97D5B1E0C1EA300576C24 /* Foundation.framework */; };
+		80B97D5E1E0C1EA800576C24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B97D5D1E0C1EA800576C24 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +108,10 @@
 		80648D241E0BF086000D2921 /* Launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Launch.png; sourceTree = "<group>"; };
 		80648D261E0BF28B000D2921 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		80648D301E0BF75F000D2921 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		80B97D581E0C1E7600576C24 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		80B97D591E0C1E7600576C24 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		80B97D5B1E0C1EA300576C24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		80B97D5D1E0C1EA800576C24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +119,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80B97D5E1E0C1EA800576C24 /* UIKit.framework in Frameworks */,
+				80B97D5C1E0C1EA300576C24 /* Foundation.framework in Frameworks */,
 				80648D311E0BF75F000D2921 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,22 +148,13 @@
 		802BC84C1E0937BA00F1A650 /* Merger */ = {
 			isa = PBXGroup;
 			children = (
-				802BC8501E0937BA00F1A650 /* AppDelegate.h */,
-				802BC8511E0937BA00F1A650 /* AppDelegate.m */,
+				80B97D621E0C20C900576C24 /* AppDelegate */,
+				80B97D5F1E0C205100576C24 /* ContactsViewController */,
+				80B97D631E0C30A300576C24 /* DetailsViewController */,
+				80B97D641E0C30B300576C24 /* MergeViewController */,
 				802BC8561E0937BA00F1A650 /* Main.storyboard */,
-				802BC95B1E0A8D9000F1A650 /* MergeTableViewCell.h */,
-				802BC95C1E0A8D9000F1A650 /* MergeTableViewCell.m */,
-				802BC89F1E094BAE00F1A650 /* DetailsViewController.h */,
-				802BC8A01E094BAE00F1A650 /* DetailsViewController.m */,
-				802BC8641E09380900F1A650 /* ContactTableViewController.h */,
-				802BC8651E09380900F1A650 /* ContactTableViewController.m */,
-				802BC8A21E09614B00F1A650 /* MergeViewController.h */,
-				802BC8A31E09614B00F1A650 /* MergeViewController.m */,
-				802BC8591E0937BA00F1A650 /* Assets.xcassets */,
-				80648CE11E0BEA97000D2921 /* AppIcon.appiconset */,
 				80648D261E0BF28B000D2921 /* LaunchScreen.storyboard */,
 				802BC84D1E0937BA00F1A650 /* Supporting Files */,
-				802BC85E1E0937BA00F1A650 /* Info.plist */,
 			);
 			path = Merger;
 			sourceTree = "<group>";
@@ -162,17 +162,11 @@
 		802BC84D1E0937BA00F1A650 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				80648D101E0BEC3C000D2921 /* ButtonChg_Grn70x30.png */,
-				80648D111E0BEC3C000D2921 /* ButtonChg_Grn70x30@2x.png.png */,
-				80648D121E0BEC3C000D2921 /* Contacts-icon.png */,
-				80648D131E0BEC3C000D2921 /* Contacts-icon@2x.png */,
-				80648D141E0BEC3C000D2921 /* minus-26.png */,
-				80648D241E0BF086000D2921 /* Launch.png */,
-				80648D151E0BEC3C000D2921 /* minus-26@2x.png */,
-				80648D161E0BEC3C000D2921 /* TableRow_Dark.png */,
-				80648D171E0BEC3C000D2921 /* TableRow_Dark@2x.png.png */,
-				80648D181E0BEC3C000D2921 /* TableRow_Light.png */,
-				80648D191E0BEC3C000D2921 /* TableRow_Light@2x.png.png */,
+				802BC85E1E0937BA00F1A650 /* Info.plist */,
+				802BC8591E0937BA00F1A650 /* Assets.xcassets */,
+				80648CE11E0BEA97000D2921 /* AppIcon.appiconset */,
+				80B97D611E0C209400576C24 /* ActivityIndicator */,
+				80B97D601E0C208900576C24 /* Images */,
 				802BC84E1E0937BA00F1A650 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -211,9 +205,76 @@
 		80648D2F1E0BF75F000D2921 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				80B97D5D1E0C1EA800576C24 /* UIKit.framework */,
+				80B97D5B1E0C1EA300576C24 /* Foundation.framework */,
 				80648D301E0BF75F000D2921 /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		80B97D5F1E0C205100576C24 /* ContactsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				802BC8641E09380900F1A650 /* ContactTableViewController.h */,
+				802BC8651E09380900F1A650 /* ContactTableViewController.m */,
+			);
+			name = ContactsViewController;
+			sourceTree = "<group>";
+		};
+		80B97D601E0C208900576C24 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				80648D101E0BEC3C000D2921 /* ButtonChg_Grn70x30.png */,
+				80648D111E0BEC3C000D2921 /* ButtonChg_Grn70x30@2x.png.png */,
+				80648D121E0BEC3C000D2921 /* Contacts-icon.png */,
+				80648D131E0BEC3C000D2921 /* Contacts-icon@2x.png */,
+				80648D141E0BEC3C000D2921 /* minus-26.png */,
+				80648D241E0BF086000D2921 /* Launch.png */,
+				80648D151E0BEC3C000D2921 /* minus-26@2x.png */,
+				80648D161E0BEC3C000D2921 /* TableRow_Dark.png */,
+				80648D171E0BEC3C000D2921 /* TableRow_Dark@2x.png.png */,
+				80648D181E0BEC3C000D2921 /* TableRow_Light.png */,
+				80648D191E0BEC3C000D2921 /* TableRow_Light@2x.png.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		80B97D611E0C209400576C24 /* ActivityIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				80B97D581E0C1E7600576C24 /* MBProgressHUD.h */,
+				80B97D591E0C1E7600576C24 /* MBProgressHUD.m */,
+			);
+			name = ActivityIndicator;
+			sourceTree = "<group>";
+		};
+		80B97D621E0C20C900576C24 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				802BC8501E0937BA00F1A650 /* AppDelegate.h */,
+				802BC8511E0937BA00F1A650 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		80B97D631E0C30A300576C24 /* DetailsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				802BC89F1E094BAE00F1A650 /* DetailsViewController.h */,
+				802BC8A01E094BAE00F1A650 /* DetailsViewController.m */,
+			);
+			name = DetailsViewController;
+			sourceTree = "<group>";
+		};
+		80B97D641E0C30B300576C24 /* MergeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				802BC8A21E09614B00F1A650 /* MergeViewController.h */,
+				802BC8A31E09614B00F1A650 /* MergeViewController.m */,
+				802BC95B1E0A8D9000F1A650 /* MergeTableViewCell.h */,
+				802BC95C1E0A8D9000F1A650 /* MergeTableViewCell.m */,
+			);
+			name = MergeViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,6 +389,7 @@
 				802BC8A41E09614B00F1A650 /* MergeViewController.m in Sources */,
 				802BC95D1E0A8D9000F1A650 /* MergeTableViewCell.m in Sources */,
 				802BC8A11E094BAE00F1A650 /* DetailsViewController.m in Sources */,
+				80B97D5A1E0C1E7600576C24 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

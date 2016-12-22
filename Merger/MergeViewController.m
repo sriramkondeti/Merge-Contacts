@@ -12,7 +12,7 @@
 
 @interface MergeViewController () {
   AppDelegate *delegate;
-  NSMutableDictionary *temp;
+  NSMutableDictionary *mergedContactDict;
 }
 
 @end
@@ -22,16 +22,15 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-  temp = [delegate.contactArray objectAtIndex:delegate.selectedContact];
-  _lblAccountNo.text = [[temp objectForKey:@"Account"] objectAtIndex:0];
+  mergedContactDict = [delegate.contactArray objectAtIndex:delegate.selectedContact];
+  _lblAccountNo.text = [[mergedContactDict objectForKey:@"Account"] objectAtIndex:0];
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
                  ^{
                    NSURL *url = [NSURL
-                       URLWithString:[[temp objectForKey:@"PictureThumbnailUrl"]
+                       URLWithString:[[mergedContactDict objectForKey:@"PictureThumbnailUrl"]
                                          objectAtIndex:0]];
                    NSData *data = [NSData dataWithContentsOfURL:url];
-                   UIImage *image = [[UIImage alloc] initWithData:data];
-
+                     UIImage *image = [[UIImage alloc] initWithData:data]?[[UIImage alloc] initWithData:data]:[UIImage imageNamed:@"Contacts-icon.png"];
                    dispatch_async(dispatch_get_main_queue(), ^{
                      [_avatar setImage:image];
                    });
@@ -46,12 +45,30 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return [[temp allKeys] count];
+  return [[mergedContactDict allKeys] count];
 }
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section {
 
-  return [[[temp allValues] objectAtIndex:section] count];
+  return [[[mergedContactDict allValues] objectAtIndex:section] count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section {
+    return [[mergedContactDict allKeys] objectAtIndex:section];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel *myLabel = [[UILabel alloc] init];
+    myLabel.frame = CGRectMake(20, 8, 320, 20);
+    myLabel.font = [UIFont boldSystemFontOfSize:14];
+    myLabel.textColor = [UIColor darkGrayColor];
+    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    UIView *headerView = [[UIView alloc] init];
+    [headerView setBackgroundColor:[UIColor whiteColor]];
+    [headerView addSubview:myLabel];
+    return headerView;
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -74,10 +91,6 @@
   }
 }
 
-- (NSString *)tableView:(UITableView *)tableView
-    titleForHeaderInSection:(NSInteger)section {
-  return [[temp allKeys] objectAtIndex:section];
-}
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
@@ -89,9 +102,9 @@
                                   reuseIdentifier:CellIdentifier];
   }
 
-  cell.lblValue.text = [[[temp allValues] objectAtIndex:indexPath.section]
+  cell.lblValue.text = [[[mergedContactDict allValues] objectAtIndex:indexPath.section]
       objectAtIndex:indexPath.row];
-  if ([[[temp allValues] objectAtIndex:indexPath.section] count] > 1) {
+  if ([[[mergedContactDict allValues] objectAtIndex:indexPath.section] count] > 1) {
     [cell.deleteBtn setHidden:NO];
   } else {
     [cell.deleteBtn setHidden:YES];
@@ -101,33 +114,15 @@
   return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    UILabel *myLabel = [[UILabel alloc] init];
-    myLabel.frame = CGRectMake(20, 8, 320, 20);
-    myLabel.font = [UIFont boldSystemFontOfSize:14];
-    myLabel.textColor = [UIColor darkGrayColor];
-    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    
-    UIView *headerView = [[UIView alloc] init];
-    [headerView setBackgroundColor:[UIColor whiteColor]];
-    [headerView addSubview:myLabel];
-    
-    return headerView;
-}
-
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   delegate.selectedContact = (int)indexPath.row;
 }
 
-
-
 - (void)deleteBtnPressed:(MergeTableViewCell *)cell {
 
   NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
-
-  [[[temp allValues] objectAtIndex:indexPath.section]
+  [[[mergedContactDict allValues] objectAtIndex:indexPath.section]
       removeObjectAtIndex:indexPath.row];
   [tableview reloadData];
 }

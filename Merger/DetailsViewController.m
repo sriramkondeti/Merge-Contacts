@@ -21,44 +21,42 @@
   [super viewDidLoad];
 
   delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:YES];
     [self reloadData];
+    [self findMergable];
     [_tableview reloadData];
 }
-- (void)reloadData {
-  detailDict = temp = [NSMutableDictionary dictionary];
-  mergableContactArr = [NSMutableArray array];
-  detailDict = [delegate.contactArray objectAtIndex:delegate.selectedContact];
 
-    _lblAccountNo.text = [[detailDict objectForKey:@"Account"] objectAtIndex:0];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+- (void)reloadData {
+  detailDict = [NSMutableDictionary dictionary];
+  detailDict = [delegate.contactArray objectAtIndex:delegate.selectedContact];
+ _lblAccountNo.text = [[detailDict objectForKey:@"Account"] objectAtIndex:0];
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
                    ^{
                        NSURL *url = [NSURL
                                      URLWithString:[[detailDict objectForKey:@"PictureThumbnailUrl"]
                                                     objectAtIndex:0]];
                        NSData *data = [NSData dataWithContentsOfURL:url];
                        UIImage *image = [[UIImage alloc] initWithData:data]?[[UIImage alloc] initWithData:data]:[UIImage imageNamed:@"Contacts-icon.png"];
-                       
                        dispatch_async(dispatch_get_main_queue(), ^{
                            [_avatar setImage:image];
                        });
                    });
-  for (int i = 0; i < delegate.contactArray.count; i++) {
-    if (i != delegate.selectedContact) {
-
-      temp = [delegate.contactArray objectAtIndex:i];
-      if ([[[temp objectForKey:@"Account"] objectAtIndex:0]
-              isEqual:[[detailDict objectForKey:@"Account"] objectAtIndex:0]]) {
-        [mergableContactArr addObject:temp];
-      }
-    }
-  }
+   
 }
-
+ -(void)findMergable
+{
+    temp = [NSMutableDictionary dictionary];
+    mergableContactArr = [NSMutableArray array];
+    for (int i = 0; i < delegate.contactArray.count; i++) {
+        if (i != delegate.selectedContact) {
+            temp = [delegate.contactArray objectAtIndex:i];
+            if ([[[temp objectForKey:@"Account"] objectAtIndex:0]
+                 isEqual:[[detailDict objectForKey:@"Account"] objectAtIndex:0]]) {
+                [mergableContactArr addObject:temp];
+            }
+        }
+    }
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [[detailDict allKeys] count];
 }
@@ -68,10 +66,24 @@
     return [[[detailDict allValues] objectAtIndex:section] count];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel *myLabel = [[UILabel alloc] init];
+    myLabel.frame = CGRectMake(20, 8, 320, 20);
+    myLabel.font = [UIFont boldSystemFontOfSize:14];
+    myLabel.textColor = [UIColor darkGrayColor];
+    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    UIView *headerView = [[UIView alloc] init];
+    [headerView setBackgroundColor:[UIColor whiteColor]];
+    [headerView addSubview:myLabel];
+    return headerView;
+}
+
 - (NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section {
     return [[detailDict allKeys] objectAtIndex:section];
 }
+
 
 - (void)tableView:(UITableView *)tableView
       willDisplayCell:(UITableViewCell *)cell
@@ -113,22 +125,6 @@ titleForHeaderInSection:(NSInteger)section {
     return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    UILabel *myLabel = [[UILabel alloc] init];
-    myLabel.frame = CGRectMake(20, 8, 320, 20);
-    myLabel.font = [UIFont boldSystemFontOfSize:14];
-    myLabel.textColor = [UIColor darkGrayColor];
-    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    
-    UIView *headerView = [[UIView alloc] init];
-    [headerView setBackgroundColor:[UIColor whiteColor]];
-
-    [headerView addSubview:myLabel];
-    
-    return headerView;
-}
-
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
@@ -139,6 +135,8 @@ titleForHeaderInSection:(NSInteger)section {
 #pragma mark - Navigation
 
 - (IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
+    [self reloadData];
+    [_tableview reloadData];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -184,7 +182,6 @@ titleForHeaderInSection:(NSInteger)section {
   for (int j = 0; j < mergableContactArr.count; j++) {
 
     for (int i = 0; i < delegate.contactArray.count; i++) {
-      if (i != delegate.selectedContact) {
 
         temp = [delegate.contactArray objectAtIndex:i];
         NSString *mergeID = [[[mergableContactArr objectAtIndex:j]
@@ -196,21 +193,19 @@ titleForHeaderInSection:(NSInteger)section {
               [[[delegate.contactArray objectAtIndex:delegate.selectedContact]
                   objectForKey:@"ID"] objectAtIndex:0];
           [delegate.contactArray removeObjectAtIndex:i];
-
+            i=0;
           for (int k = 0; k < delegate.contactArray.count; k++) {
             temp = [delegate.contactArray objectAtIndex:k];
             if ([[[temp objectForKey:@"ID"] objectAtIndex:0]
                     isEqual:selectedID]) {
               delegate.selectedContact = k;
-            };
+            }
           }
         }
-      }
     }
   }
- 
-  [[NSNotificationCenter defaultCenter] postNotificationName:@"didReceiveData"
-                                                      object:nil];
+  
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"didReceiveData" object:nil];
 }
 
 @end
