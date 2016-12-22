@@ -88,13 +88,28 @@
                                   reuseIdentifier:CellIdentifier];
   }
   temp = [delegate.contactArray objectAtIndex:indexPath.row];
-
-  cell.detailTextLabel.text =
+   
+  cell.textLabel.text =
       [[temp objectForKey:@"FullName"] objectAtIndex:0]
           ? [[temp objectForKey:@"FullName"] objectAtIndex:0]
           : [[temp objectForKey:@"FirstName"] objectAtIndex:0];
-  cell.textLabel.text = [[temp objectForKey:@"Account"] objectAtIndex:0];
-  return cell;
+  cell.detailTextLabel.text = [[temp objectForKey:@"Account"] objectAtIndex:0];
+    cell.imageView.image = [UIImage imageNamed:@"Contacts-icon.png"];
+    NSURL *url = [NSURL URLWithString:[[temp objectForKey:@"PictureThumbnailUrl"] objectAtIndex:0]];
+    NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data) {
+            UIImage *image = [UIImage imageWithData:data];
+            if (image) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
+                    if (updateCell)
+                        updateCell.imageView.image = image;
+                });
+            }
+        }
+    }];
+    [task resume];
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView

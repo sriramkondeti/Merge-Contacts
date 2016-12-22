@@ -96,15 +96,32 @@
   } else {
     [cell.deleteBtn setHidden:YES];
   }
-  //[cell.lblValue setDelegate:self];
-  cell.cellDelegate = self;
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"TableRow_Light.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    cell.cellDelegate = self;
   return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel *myLabel = [[UILabel alloc] init];
+    myLabel.frame = CGRectMake(20, 8, 320, 20);
+    myLabel.font = [UIFont boldSystemFontOfSize:14];
+    myLabel.textColor = [UIColor darkGrayColor];
+    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    
+    UIView *headerView = [[UIView alloc] init];
+    [headerView setBackgroundColor:[UIColor whiteColor]];
+    [headerView addSubview:myLabel];
+    
+    return headerView;
 }
 
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   delegate.selectedContact = (int)indexPath.row;
 }
+
+
 
 - (void)deleteBtnPressed:(MergeTableViewCell *)cell {
 

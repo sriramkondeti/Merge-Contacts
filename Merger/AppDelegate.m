@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-
 @interface AppDelegate ()
 
 @end
@@ -18,7 +17,21 @@
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // Override point for customization after application launch.
-
+    //Global Apperance
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:35.0f/255.0f green:180.0f/255.0f blue:234.0f/255.0f alpha:1.000]];
+    
+    //Navigation Bar - Title Color and Font Size
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,[UIFont fontWithName:@"Helvetica-Bold" size:18.0f], NSFontAttributeName, nil]];
+    
+    //Navigation Bar - BarButtonItem Color
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    //UIBarButtonItem - Color and Font Size
+    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                          [UIColor whiteColor], NSForegroundColorAttributeName,
+                                                          [UIFont fontWithName:@"Helvetica-Bold" size:14.0f],
+                                                          NSFontAttributeName,
+                                                          nil] forState:UIControlStateNormal];
   selectedContact = 0;
   self.contactArray = [NSMutableArray array];
   NSURLRequest *request = [NSURLRequest
@@ -65,6 +78,8 @@
   [dataTask resume];
   return YES;
 }
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
   // Sent when the application is about to move from active to inactive state.

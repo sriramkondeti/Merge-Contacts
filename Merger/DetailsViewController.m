@@ -8,36 +8,45 @@
 
 #import "DetailsViewController.h"
 #import "AppDelegate.h"
+#import "MergeTableViewCell.h"
 @interface DetailsViewController () {
   AppDelegate *delegate;
   NSMutableArray *mergableContactArr;
-  NSMutableDictionary *temp;
+  NSMutableDictionary *temp, *detailDict;
 }
 @end
 
 @implementation DetailsViewController
-@synthesize detailsTextview;
 - (void)viewDidLoad {
   [super viewDidLoad];
 
   delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-  [self reloadData];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self reloadData];
+    [_tableview reloadData];
+}
 - (void)reloadData {
-  detailsTextview.text = @"";
-  NSMutableDictionary *detailDict = temp = [NSMutableDictionary dictionary];
+  detailDict = temp = [NSMutableDictionary dictionary];
   mergableContactArr = [NSMutableArray array];
   detailDict = [delegate.contactArray objectAtIndex:delegate.selectedContact];
 
-  NSArray *keyArray = [detailDict allKeys];
-  for (int i = 0; i < keyArray.count; i++) {
-    detailsTextview.text = [NSString
-        stringWithFormat:@"%@%@ : %@\n\n", detailsTextview.text,
-                         [keyArray objectAtIndex:i],
-                         [[detailDict objectForKey:[keyArray objectAtIndex:i]]
-                             objectAtIndex:0]];
-  }
+    _lblAccountNo.text = [[detailDict objectForKey:@"Account"] objectAtIndex:0];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                   ^{
+                       NSURL *url = [NSURL
+                                     URLWithString:[[detailDict objectForKey:@"PictureThumbnailUrl"]
+                                                    objectAtIndex:0]];
+                       NSData *data = [NSData dataWithContentsOfURL:url];
+                       UIImage *image = [[UIImage alloc] initWithData:data]?[[UIImage alloc] initWithData:data]:[UIImage imageNamed:@"Contacts-icon.png"];
+                       
+                       dispatch_async(dispatch_get_main_queue(), ^{
+                           [_avatar setImage:image];
+                       });
+                   });
   for (int i = 0; i < delegate.contactArray.count; i++) {
     if (i != delegate.selectedContact) {
 
@@ -51,12 +60,17 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return 1;
+    return [[detailDict allKeys] count];
 }
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section {
 
-  return mergableContactArr.count;
+    return [[[detailDict allValues] objectAtIndex:section] count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section {
+    return [[detailDict allKeys] objectAtIndex:section];
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -80,29 +94,47 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *CellIdentifier = @"Cell";
+    MergeTableViewCell *cell =
+    [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[MergeTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                         reuseIdentifier:CellIdentifier];
+    }
+    
+    cell.lblValue.text = [[[detailDict allValues] objectAtIndex:indexPath.section]
+                          objectAtIndex:indexPath.row];
+  
+    [cell.deleteBtn setHidden:YES];
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"TableRow_Light.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
 
-  static NSString *CellIdentifier = @"Cell";
-  UITableViewCell *cell =
-      [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-  if (cell == nil) {
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                  reuseIdentifier:CellIdentifier];
-  }
-  temp = [mergableContactArr objectAtIndex:indexPath.row];
+    return cell;
+}
 
-  cell.detailTextLabel.text =
-      [[temp objectForKey:@"FullName"] objectAtIndex:0]
-          ? [[temp objectForKey:@"FullName"] objectAtIndex:0]
-          : [[temp objectForKey:@"FirstName"] objectAtIndex:0];
-  cell.textLabel.text = [[temp objectForKey:@"Account"] objectAtIndex:0];
-  return cell;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel *myLabel = [[UILabel alloc] init];
+    myLabel.frame = CGRectMake(20, 8, 320, 20);
+    myLabel.font = [UIFont boldSystemFontOfSize:14];
+    myLabel.textColor = [UIColor darkGrayColor];
+    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    
+    UIView *headerView = [[UIView alloc] init];
+    [headerView setBackgroundColor:[UIColor whiteColor]];
+
+    [headerView addSubview:myLabel];
+    
+    return headerView;
 }
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }
+
+
 
 #pragma mark - Navigation
 
@@ -176,8 +208,7 @@
       }
     }
   }
-  [self reloadData];
-  [_tableview reloadData];
+ 
   [[NSNotificationCenter defaultCenter] postNotificationName:@"didReceiveData"
                                                       object:nil];
 }

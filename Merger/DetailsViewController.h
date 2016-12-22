@@ -10,7 +10,8 @@
 
 @interface DetailsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextView *detailsTextview;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
+@property (weak, nonatomic) IBOutlet UILabel *lblAccountNo;
+@property (weak, nonatomic) IBOutlet UIImageView *avatar;
 
 @end
