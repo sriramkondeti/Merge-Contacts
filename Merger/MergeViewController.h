@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MergeTableViewCell.h"
 
-@interface MergeViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface MergeViewController
+    : UIViewController <UITableViewDelegate, UITableViewDataSource,
+                        mergeTableViewCellDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (weak, nonatomic) IBOutlet UILabel *lblAccountNo;
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;

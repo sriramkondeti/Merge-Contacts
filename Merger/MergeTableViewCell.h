@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol mergeTableViewCellDelegate;
+
 @interface MergeTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *lblTitle;
-@property (weak, nonatomic) IBOutlet UITextField *lblValue;
+
+@property(weak, nonatomic) IBOutlet UITextField *lblValue;
+@property(nonatomic, retain) id<mergeTableViewCellDelegate> cellDelegate;
+@property(weak, nonatomic) IBOutlet UIButton *deleteBtn;
 
 @end
+@protocol mergeTableViewCellDelegate <NSObject>
+
+- (void)deleteBtnPressed:(MergeTableViewCell *)cell;
+
+@end
+

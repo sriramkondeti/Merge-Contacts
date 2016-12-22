@@ -11,5 +11,6 @@
 @interface DetailsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *detailsTextview;
+@property (weak, nonatomic) IBOutlet UITableView *tableview;
 
 @end
