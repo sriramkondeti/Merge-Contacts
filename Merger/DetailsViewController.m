@@ -29,6 +29,12 @@
   [_tableview reloadData];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    btnTemp = _btnEdit;//Retain barButtonItem reference.
+
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -47,7 +53,6 @@
         placeholderImage:[UIImage imageNamed:@"Contacts-icon.png"]];
 }
 - (void)findMergable {
-  btnTemp = _btnEdit;//Retain barButtonItem reference.
   temp = [NSMutableDictionary dictionary];
   mergableContactArr = [NSMutableArray array];
     //Identify Duplicate Contacts
@@ -60,7 +65,7 @@
       }
     }
   }
-    //Enable or Disable Merge Btn Based on the Duplicate Contact Cunt.
+    //Enable or Disable Merge Btn Based on the Duplicate Contact Count.
     if ([mergableContactArr count]>0) {
         [_btnMergeContacts setEnabled:YES];
         self.navigationItem.rightBarButtonItem = nil;
@@ -68,6 +73,16 @@
     else{
         [_btnMergeContacts setEnabled:NO];
         self.navigationItem.rightBarButtonItem = btnTemp;
+    }
+    //Enable Edit Only if Redundancy Found.
+    for (NSMutableArray *arr in [detailDict allValues])
+    {
+        if ([arr count]>1){
+            self.navigationItem.rightBarButtonItem = btnTemp;
+            break;
+        }
+        else
+            self.navigationItem.rightBarButtonItem = nil;
     }
 }
 #pragma mark - Table view data source
