@@ -13,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (weak, nonatomic) IBOutlet UILabel *lblAccountNo;
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
+@property (weak, nonatomic) IBOutlet UIButton *btnMergeContacts;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *btnEdit;
 
 @end

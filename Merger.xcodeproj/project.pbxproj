@@ -23,6 +23,8 @@
 		8021987B1E0CBAC6004D1F4E /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 802198691E0CBAC6004D1F4E /* UIImageView+HighlightedWebCache.m */; };
 		8021987C1E0CBAC6004D1F4E /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8021986B1E0CBAC6004D1F4E /* UIImageView+WebCache.m */; };
 		8021987D1E0CBAC6004D1F4E /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8021986D1E0CBAC6004D1F4E /* UIView+WebCacheOperation.m */; };
+		802198801E0CC45D004D1F4E /* TableHeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 8021987E1E0CC45D004D1F4E /* TableHeader.png */; };
+		802198811E0CC45D004D1F4E /* TableHeader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8021987F1E0CC45D004D1F4E /* TableHeader@2x.png */; };
 		802BC84F1E0937BA00F1A650 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC84E1E0937BA00F1A650 /* main.m */; };
 		802BC8521E0937BA00F1A650 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 802BC8511E0937BA00F1A650 /* AppDelegate.m */; };
 		802BC8581E0937BA00F1A650 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 802BC8561E0937BA00F1A650 /* Main.storyboard */; };
@@ -70,6 +72,8 @@
 		80B97D5A1E0C1E7600576C24 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B97D591E0C1E7600576C24 /* MBProgressHUD.m */; };
 		80B97D5C1E0C1EA300576C24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B97D5B1E0C1EA300576C24 /* Foundation.framework */; };
 		80B97D5E1E0C1EA800576C24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B97D5D1E0C1EA800576C24 /* UIKit.framework */; };
+		80F6316A1E0CC684009BC56E /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F631691E0CC684009BC56E /* ContactTableViewCell.m */; };
+		80F6316C1E0CCA29009BC56E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F6316B1E0CCA29009BC56E /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +110,8 @@
 		8021986B1E0CBAC6004D1F4E /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		8021986C1E0CBAC6004D1F4E /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		8021986D1E0CBAC6004D1F4E /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		8021987E1E0CC45D004D1F4E /* TableHeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TableHeader.png; sourceTree = "<group>"; };
+		8021987F1E0CC45D004D1F4E /* TableHeader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TableHeader@2x.png"; sourceTree = "<group>"; };
 		802BC84A1E0937BA00F1A650 /* Merger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Merger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		802BC84E1E0937BA00F1A650 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		802BC8501E0937BA00F1A650 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -161,6 +167,9 @@
 		80B97D591E0C1E7600576C24 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		80B97D5B1E0C1EA300576C24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		80B97D5D1E0C1EA800576C24 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		80F631681E0CC684009BC56E /* ContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewCell.h; sourceTree = "<group>"; };
+		80F631691E0CC684009BC56E /* ContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewCell.m; sourceTree = "<group>"; };
+		80F6316B1E0CCA29009BC56E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +177,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80F6316C1E0CCA29009BC56E /* QuartzCore.framework in Frameworks */,
 				80B97D5E1E0C1EA800576C24 /* UIKit.framework in Frameworks */,
 				80B97D5C1E0C1EA300576C24 /* Foundation.framework in Frameworks */,
 				80648D311E0BF75F000D2921 /* CoreGraphics.framework in Frameworks */,
@@ -252,6 +262,8 @@
 		802BC84D1E0937BA00F1A650 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8021987E1E0CC45D004D1F4E /* TableHeader.png */,
+				8021987F1E0CC45D004D1F4E /* TableHeader@2x.png */,
 				8021984C1E0CBAC6004D1F4E /* SDWebImage */,
 				802BC85E1E0937BA00F1A650 /* Info.plist */,
 				802BC8591E0937BA00F1A650 /* Assets.xcassets */,
@@ -296,6 +308,7 @@
 		80648D2F1E0BF75F000D2921 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				80F6316B1E0CCA29009BC56E /* QuartzCore.framework */,
 				80B97D5D1E0C1EA800576C24 /* UIKit.framework */,
 				80B97D5B1E0C1EA300576C24 /* Foundation.framework */,
 				80648D301E0BF75F000D2921 /* CoreGraphics.framework */,
@@ -308,6 +321,8 @@
 			children = (
 				802BC8641E09380900F1A650 /* ContactTableViewController.h */,
 				802BC8651E09380900F1A650 /* ContactTableViewController.m */,
+				80F631681E0CC684009BC56E /* ContactTableViewCell.h */,
+				80F631691E0CC684009BC56E /* ContactTableViewCell.m */,
 			);
 			name = ContactsViewController;
 			sourceTree = "<group>";
@@ -451,6 +466,7 @@
 				80648D051E0BEA97000D2921 /* Icon-App-60x60@1x.png in Resources */,
 				80648D0C1E0BEA97000D2921 /* Icon-App-76x76@3x.png in Resources */,
 				80648CFF1E0BEA97000D2921 /* Icon-App-29x29@3x.png in Resources */,
+				802198811E0CC45D004D1F4E /* TableHeader@2x.png in Resources */,
 				80648D271E0BF28B000D2921 /* LaunchScreen.storyboard in Resources */,
 				80648D1E1E0BEC3C000D2921 /* minus-26.png in Resources */,
 				80648D0B1E0BEA97000D2921 /* Icon-App-76x76@2x.png in Resources */,
@@ -464,6 +480,7 @@
 				80648CFE1E0BEA97000D2921 /* Icon-App-29x29@2x.png in Resources */,
 				80648D0D1E0BEA97000D2921 /* Icon-App-83.5x83.5@2x.png in Resources */,
 				80648D031E0BEA97000D2921 /* Icon-App-57x57@1x.png in Resources */,
+				802198801E0CC45D004D1F4E /* TableHeader.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +499,7 @@
 				802198761E0CBAC6004D1F4E /* SDWebImagePrefetcher.m in Sources */,
 				802BC8521E0937BA00F1A650 /* AppDelegate.m in Sources */,
 				8021987D1E0CBAC6004D1F4E /* UIView+WebCacheOperation.m in Sources */,
+				80F6316A1E0CC684009BC56E /* ContactTableViewCell.m in Sources */,
 				8021986E1E0CBAC6004D1F4E /* MKAnnotationView+WebCache.m in Sources */,
 				8021987A1E0CBAC6004D1F4E /* UIImage+WebP.m in Sources */,
 				802BC8661E09380900F1A650 /* ContactTableViewController.m in Sources */,

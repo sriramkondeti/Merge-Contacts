@@ -21,16 +21,18 @@
 @implementation MergeViewController
 @synthesize tableview;
 - (void)viewDidLoad {
+  // Do any additional setup after loading the view.*/
   [super viewDidLoad];
   delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-  mergedContactDict = [delegate.contactArray objectAtIndex:delegate.selectedContact];
-  _lblAccountNo.text = [[mergedContactDict objectForKey:@"Account"] objectAtIndex:0];
-  [_avatar sd_setImageWithURL:[NSURL URLWithString:[[mergedContactDict objectForKey:@"PictureThumbnailUrl"] objectAtIndex:0]]
-     
-               placeholderImage:[UIImage imageNamed:@"Contacts-icon.png"]];
-
-
-  // Do any additional setup after loading the view.*/
+  mergedContactDict =
+      [delegate.contactArray objectAtIndex:delegate.selectedContact];
+  _lblAccountNo.text =
+      [[mergedContactDict objectForKey:@"Account"] objectAtIndex:0];
+  [_avatar sd_setImageWithURL:
+               [NSURL URLWithString:[[mergedContactDict
+                                        objectForKey:@"PictureThumbnailUrl"]
+                                        objectAtIndex:0]]
+             placeholderImage:[UIImage imageNamed:@"Contacts-icon.png"]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,21 +50,22 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView
-titleForHeaderInSection:(NSInteger)section {
-    return [[mergedContactDict allKeys] objectAtIndex:section];
+    titleForHeaderInSection:(NSInteger)section {
+  return [[mergedContactDict allKeys] objectAtIndex:section];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    UILabel *myLabel = [[UILabel alloc] init];
-    myLabel.frame = CGRectMake(20, 8, 320, 20);
-    myLabel.font = [UIFont boldSystemFontOfSize:14];
-    myLabel.textColor = [UIColor darkGrayColor];
-    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    UIView *headerView = [[UIView alloc] init];
-    [headerView setBackgroundColor:[UIColor whiteColor]];
-    [headerView addSubview:myLabel];
-    return headerView;
+- (UIView *)tableView:(UITableView *)tableView
+    viewForHeaderInSection:(NSInteger)section {
+
+  UILabel *myLabel = [[UILabel alloc] init];
+  myLabel.frame = CGRectMake(20, 8, 320, 20);
+  myLabel.font = [UIFont boldSystemFontOfSize:14];
+  myLabel.textColor = [UIColor darkGrayColor];
+  myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+  UIView *headerView = [[UIView alloc] init];
+  [headerView setBackgroundColor:[UIColor whiteColor]];
+  [headerView addSubview:myLabel];
+  return headerView;
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -92,19 +95,24 @@ titleForHeaderInSection:(NSInteger)section {
   MergeTableViewCell *cell =
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-      cell = [[MergeTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+    cell =
+        [[MergeTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                   reuseIdentifier:CellIdentifier];
   }
 
-  cell.lblValue.text = [[[mergedContactDict allValues] objectAtIndex:indexPath.section]
-      objectAtIndex:indexPath.row];
-  if ([[[mergedContactDict allValues] objectAtIndex:indexPath.section] count] > 1) {
+  cell.lblValue.text = [[[mergedContactDict allValues]
+      objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  if ([[[mergedContactDict allValues] objectAtIndex:indexPath.section] count] >
+      1) {
     [cell.deleteBtn setHidden:NO];
   } else {
     [cell.deleteBtn setHidden:YES];
   }
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"TableRow_Light.png"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    cell.cellDelegate = self;
+  cell.backgroundView = [[UIImageView alloc]
+      initWithImage:[[UIImage imageNamed:@"TableRow_Light.png"]
+                        stretchableImageWithLeftCapWidth:0.0
+                                            topCapHeight:5.0]];
+  cell.cellDelegate = self;
   return cell;
 }
 
@@ -121,16 +129,5 @@ titleForHeaderInSection:(NSInteger)section {
   [tableview reloadData];
 }
 
-/*
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little
-preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
