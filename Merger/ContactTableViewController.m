@@ -20,12 +20,15 @@
 
 @implementation ContactTableViewController
 
+#pragma mark - View Lifecycle
+
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+  [MBProgressHUD showHUDAddedTo:self.view animated:YES];//Activity Indicator
   delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
   contactDict = [NSMutableDictionary dictionary];
+    //Add Observer to receive the NSNotification.
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(didReceiveData)
                                                name:@"didReceiveData"
@@ -37,13 +40,17 @@
   // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - NSNotificationcenter
+
+
 - (void)didReceiveData {
   dispatch_async(dispatch_get_main_queue(), ^{
 
     [self.tableView reloadData];
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];//Make sure to Reload on Main Thread as Notification is sent via BG thread.
   });
 }
+
 
 #pragma mark - Table view data source
 
@@ -79,6 +86,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
+    //CustomTableview Cell.
   ContactTableViewCell *cell =
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil)
@@ -93,6 +101,7 @@
       [[contactDict objectForKey:@"Account"] objectAtIndex:0];
    NSMutableDictionary * temp = [NSMutableDictionary dictionary];
    NSMutableArray *duplicateContactArr = [NSMutableArray array];
+    //Find Duplicate contacts for each contact and display.
     for (int i = 0; i < delegate.contactArray.count; i++) {
         if (i != indexPath.row) {
             temp = [delegate.contactArray objectAtIndex:i];
@@ -104,7 +113,7 @@
     }
     cell.lblDuplicates.text = [NSString stringWithFormat:@"%d", (int)[duplicateContactArr count]];
     cell.lblDuplicates.backgroundColor =[duplicateContactArr count]>0? [UIColor colorWithRed:(255.0/255.0) green:(23.0/255.0) blue:(68.0/255.0)alpha:1]:[UIColor colorWithRed:(6.0/255.0) green:(220.0/255.0) blue:(167.0/255.0)alpha:1];
-    
+    //Cahce UIimage to avoid Redownloading when the cells are dequed & Resued.
   [cell.avatar
       sd_setImageWithURL:
           [NSURL
@@ -114,7 +123,7 @@
     
   return cell;
 }
-
+#pragma mark - Table view Delegate
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   delegate.selectedContact = (int)indexPath.row;

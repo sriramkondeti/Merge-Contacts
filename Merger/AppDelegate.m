@@ -13,6 +13,7 @@
 
 @implementation AppDelegate
 @synthesize contactArray, selectedContact;
+#pragma mark - App Lifecycle
 
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -48,7 +49,7 @@
                                      NSFontAttributeName, nil]
                     forState:UIControlStateNormal];
   selectedContact = 0;
-  self.contactArray = [NSMutableArray array];
+  self.contactArray = [NSMutableArray array];//Array to Save all the Contacts received from the API.
   NSURLRequest *request = [NSURLRequest
        requestWithURL:
            [NSURL URLWithString:@"https://contacts-8d05b.firebaseio.com/.json"]
@@ -66,7 +67,8 @@
                                options:NSJSONReadingAllowFragments
                                  error:&error] objectForKey:@"d"]
                     objectForKey:@"results"];
-
+                //Each value is inserted into an Array and resaved in to the Global Contact array.
+                //This is to group objects with similiar keys into one record, without replacing the existing Values.
                 for (int j = 0; j < resultArr.count; j++) {
                     NSMutableDictionary* dict = [[NSMutableDictionary alloc]
                         initWithDictionary:[resultArr objectAtIndex:j]];
@@ -80,7 +82,7 @@
                     }
                     [self.contactArray addObject:dict];
                 }
-
+                //Post Notification to View to Reload the table data.
                 [[NSNotificationCenter defaultCenter]
                     postNotificationName:@"didReceiveData"
                                   object:nil];

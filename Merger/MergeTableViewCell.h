@@ -18,7 +18,7 @@
 
 @end
 @protocol mergeTableViewCellDelegate <NSObject>
-
+//Implement the function in the Delegate.
 - (void)deleteBtnPressed:(MergeTableViewCell *)cell;
 
 @end

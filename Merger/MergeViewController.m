@@ -20,6 +20,8 @@
 
 @implementation MergeViewController
 @synthesize tableview;
+#pragma mark - View Lifecycle
+
 - (void)viewDidLoad {
   // Do any additional setup after loading the view.*/
   [super viewDidLoad];
@@ -39,14 +41,15 @@
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }
+#pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return [[mergedContactDict allKeys] count];
+  return [[mergedContactDict allKeys] count];//NSMutableDictionary - count of Keys.
 }
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section {
 
-  return [[[mergedContactDict allValues] objectAtIndex:section] count];
+  return [[[mergedContactDict allValues] objectAtIndex:section] count];////NSMutableDictionary - count of Objects at each key.
 }
 
 - (NSString *)tableView:(UITableView *)tableView
@@ -92,6 +95,7 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
   static NSString *CellIdentifier = @"Cell";
+    //Custom Cell Implementation.
   MergeTableViewCell *cell =
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
@@ -112,18 +116,24 @@
       initWithImage:[[UIImage imageNamed:@"TableRow_Light.png"]
                         stretchableImageWithLeftCapWidth:0.0
                                             topCapHeight:5.0]];
+    //Set the Delegate as self as this VC will be handing the deletion of Objects.
   cell.cellDelegate = self;
   return cell;
 }
+
+#pragma mark - Table view Delegate
 
 - (void)tableView:(UITableView *)tableView
     didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   delegate.selectedContact = (int)indexPath.row;
 }
 
+#pragma mark - Table view Cell Delegate
+
 - (void)deleteBtnPressed:(MergeTableViewCell *)cell {
 
   NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
+  //Remove the Object at Indexpath & Update the table, Global Contact array.
   [[[mergedContactDict allValues] objectAtIndex:indexPath.section]
       removeObjectAtIndex:indexPath.row];
   [tableview reloadData];

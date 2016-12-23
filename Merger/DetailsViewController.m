@@ -19,13 +19,22 @@
 @end
 
 @implementation DetailsViewController
+#pragma mark - View Lifecycle
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-  [self reloadData];
-  [self findMergable];
+  [self reloadData];//To load Picture & User Account NO
+  [self findMergable]; //Identify Duplicate Contacts for the COntact selected.
   [_tableview reloadData];
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Object Methods
 
 - (void)reloadData {
   detailDict = [NSMutableDictionary dictionary];
@@ -38,9 +47,10 @@
         placeholderImage:[UIImage imageNamed:@"Contacts-icon.png"]];
 }
 - (void)findMergable {
-    btnTemp = _btnEdit;
+  btnTemp = _btnEdit;//Retain barButtonItem reference.
   temp = [NSMutableDictionary dictionary];
   mergableContactArr = [NSMutableArray array];
+    //Identify Duplicate Contacts
   for (int i = 0; i < delegate.contactArray.count; i++) {
     if (i != delegate.selectedContact) {
       temp = [delegate.contactArray objectAtIndex:i];
@@ -50,6 +60,7 @@
       }
     }
   }
+    //Enable or Disable Merge Btn Based on the Duplicate Contact Cunt.
     if ([mergableContactArr count]>0) {
         [_btnMergeContacts setEnabled:YES];
         self.navigationItem.rightBarButtonItem = nil;
@@ -59,13 +70,15 @@
         self.navigationItem.rightBarButtonItem = btnTemp;
     }
 }
+#pragma mark - Table view data source
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return [[detailDict allKeys] count];
+  return [[detailDict allKeys] count];//NSMutableDictionary -  Count of Keys
 }
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section {
 
-  return [[[detailDict allValues] objectAtIndex:section] count];
+  return [[[detailDict allValues] objectAtIndex:section] count]; //NSMutableDictionary -  objects returned for Each key.
 }
 
 - (UIView *)tableView:(UITableView *)tableView
@@ -84,7 +97,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView
     titleForHeaderInSection:(NSInteger)section {
-  return [[detailDict allKeys] objectAtIndex:section];
+  return [[detailDict allKeys] objectAtIndex:section];//NSMutableDictionary Key as the Section Title
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -111,6 +124,7 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
   static NSString *CellIdentifier = @"Cell";
+    //Custom Cell Implementation
   MergeTableViewCell *cell =
       [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
@@ -131,14 +145,12 @@
   return cell;
 }
 
-- (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
-}
+
 
 #pragma mark - Navigation
 
 - (IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
+    //when the Segue Unwinds DetailsVC.
   [self reloadData];
   [self findMergable];
   [_tableview reloadData];
@@ -146,8 +158,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
+  //User Selected Contact details
   NSArray *selectedKeyArr = [NSMutableArray array];
   NSArray *selectedValArr = [NSMutableArray array];
+  //User Duplicate Contact details
   NSArray *mergeKeyArr = [NSMutableArray array];
   NSArray *mergeValArr = [NSMutableArray array];
 
@@ -155,18 +169,19 @@
       [[delegate.contactArray objectAtIndex:delegate.selectedContact] allKeys];
   selectedValArr = [
       [delegate.contactArray objectAtIndex:delegate.selectedContact] allValues];
-
+//For Every Duplicate Contact
   for (int i = 0; i < mergableContactArr.count; i++) {
     mergeKeyArr = [[mergableContactArr objectAtIndex:i] allKeys];
     mergeValArr = [[mergableContactArr objectAtIndex:i] allValues];
 
     for (int j = 0; j < [mergeKeyArr count]; j++) {
-
+//If User selected contact contains the same Key as Duplicate Contact, merge the Duplicate content to the User selected Contact instaed of Replacing.
       if ([selectedKeyArr containsObject:[mergeKeyArr objectAtIndex:j]]) {
 
         NSMutableArray *arr = [[NSMutableArray alloc] init];
         arr = [[delegate.contactArray objectAtIndex:delegate.selectedContact]
             objectForKey:[mergeKeyArr objectAtIndex:j]];
+          //While Merging, Make sure that the Dupliacte content is not present in the User selected Contact,  to Avoid redudndacy.Add Value if its not Preseent in the User Selected Contact.
         if (![arr containsObject:[[mergeValArr objectAtIndex:j]
                                      objectAtIndex:0]]) {
           [arr addObject:[[mergeValArr objectAtIndex:j] objectAtIndex:0]];
@@ -175,7 +190,7 @@
                  forKey:[mergeKeyArr objectAtIndex:j]];
         }
       }
-
+//if User selected contact doesn't contain the Key/Value present in Duplicate Contact, Add it to the User seelcted Contact.
       else if (![selectedKeyArr containsObject:[mergeKeyArr objectAtIndex:j]]) {
         [[delegate.contactArray objectAtIndex:delegate.selectedContact]
             setObject:[mergeValArr objectAtIndex:j]
@@ -183,7 +198,9 @@
       }
     }
   }
-
+    
+    
+//Delete the Duplicate contact from the Global Contact Array, Since its data Merged.
   for (int j = 0; j < mergableContactArr.count; j++) {
 
     for (int i = 0; i < delegate.contactArray.count; i++) {
@@ -199,6 +216,7 @@
                 objectForKey:@"ID"] objectAtIndex:0];
         [delegate.contactArray removeObjectAtIndex:i];
         i = 0;
+          //Make sure to Keep Track of User selected contact as removing Objects changes the Order of Global contact array.
         for (int k = 0; k < delegate.contactArray.count; k++) {
           temp = [delegate.contactArray objectAtIndex:k];
           if ([[[temp objectForKey:@"ID"] objectAtIndex:0]
@@ -209,7 +227,7 @@
       }
     }
   }
-
+//Broadcast the change to the View COntrollers.
   [[NSNotificationCenter defaultCenter] postNotificationName:@"didReceiveData"
                                                       object:nil];
 }
