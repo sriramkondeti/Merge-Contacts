@@ -9,6 +9,7 @@
 #import "MergeViewController.h"
 #import "AppDelegate.h"
 #import "MergeTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface MergeViewController () {
   AppDelegate *delegate;
@@ -24,17 +25,10 @@
   delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
   mergedContactDict = [delegate.contactArray objectAtIndex:delegate.selectedContact];
   _lblAccountNo.text = [[mergedContactDict objectForKey:@"Account"] objectAtIndex:0];
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
-                 ^{
-                   NSURL *url = [NSURL
-                       URLWithString:[[mergedContactDict objectForKey:@"PictureThumbnailUrl"]
-                                         objectAtIndex:0]];
-                   NSData *data = [NSData dataWithContentsOfURL:url];
-                     UIImage *image = [[UIImage alloc] initWithData:data]?[[UIImage alloc] initWithData:data]:[UIImage imageNamed:@"Contacts-icon.png"];
-                   dispatch_async(dispatch_get_main_queue(), ^{
-                     [_avatar setImage:image];
-                   });
-                 });
+  [_avatar sd_setImageWithURL:[NSURL URLWithString:[[mergedContactDict objectForKey:@"PictureThumbnailUrl"] objectAtIndex:0]]
+     
+               placeholderImage:[UIImage imageNamed:@"Contacts-icon.png"]];
+
 
   // Do any additional setup after loading the view.*/
 }

@@ -9,6 +9,7 @@
 #import "DetailsViewController.h"
 #import "AppDelegate.h"
 #import "MergeTableViewCell.h"
+#import "UIImageView+WebCache.h"
 @interface DetailsViewController () {
   AppDelegate *delegate;
   NSMutableArray *mergableContactArr;
@@ -30,17 +31,9 @@
   detailDict = [NSMutableDictionary dictionary];
   detailDict = [delegate.contactArray objectAtIndex:delegate.selectedContact];
  _lblAccountNo.text = [[detailDict objectForKey:@"Account"] objectAtIndex:0];
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
-                   ^{
-                       NSURL *url = [NSURL
-                                     URLWithString:[[detailDict objectForKey:@"PictureThumbnailUrl"]
-                                                    objectAtIndex:0]];
-                       NSData *data = [NSData dataWithContentsOfURL:url];
-                       UIImage *image = [[UIImage alloc] initWithData:data]?[[UIImage alloc] initWithData:data]:[UIImage imageNamed:@"Contacts-icon.png"];
-                       dispatch_async(dispatch_get_main_queue(), ^{
-                           [_avatar setImage:image];
-                       });
-                   });
+  [_avatar sd_setImageWithURL:[NSURL URLWithString:[[detailDict objectForKey:@"PictureThumbnailUrl"] objectAtIndex:0]]
+     
+                      placeholderImage:[UIImage imageNamed:@"Contacts-icon.png"]];
    
 }
  -(void)findMergable

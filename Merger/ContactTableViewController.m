@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "ContactTableViewController.h"
 #import "MBProgressHUD.h"
+#import "UIImageView+WebCache.h"
+
 @interface ContactTableViewController () {
   AppDelegate *delegate;
   NSMutableDictionary *contactDict;
@@ -84,26 +86,11 @@
   contactDict = [delegate.contactArray objectAtIndex:indexPath.row];
   cell.textLabel.text = [[contactDict objectForKey:@"FullName"] objectAtIndex:0] ? [[contactDict objectForKey:@"FullName"] objectAtIndex:0] : [[contactDict objectForKey:@"FirstName"] objectAtIndex:0];
   cell.detailTextLabel.text = [[contactDict objectForKey:@"Account"] objectAtIndex:0];
-  cell.imageView.image = [UIImage imageNamed:@"Contacts-icon.png"];
-  NSURL *url = [NSURL URLWithString:[[contactDict objectForKey:@"PictureThumbnailUrl"] objectAtIndex:0]];
-  NSURLSessionTask *task = [[NSURLSession sharedSession]
-        dataTaskWithURL:url
-      completionHandler:^(NSData *_Nullable data,
-                          NSURLResponse *_Nullable response,
-                          NSError *_Nullable error) {
-        if (data) {
-          UIImage *image = [UIImage imageWithData:data];
-          if (image) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-              UITableViewCell *updateCell =
-                  (id)[tableView cellForRowAtIndexPath:indexPath];
-              if (updateCell)
-                updateCell.imageView.image = image;
-            });
-          }
-        }
-      }];
-  [task resume];
+ [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[[contactDict objectForKey:@"PictureThumbnailUrl"] objectAtIndex:0]]
+     
+                      placeholderImage:[UIImage imageNamed:@"Contacts-icon.png"]];
+    
+
   return cell;
 }
 
