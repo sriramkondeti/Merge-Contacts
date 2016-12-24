@@ -31,7 +31,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    btnTemp = _btnEdit;//Retain barButtonItem reference.
 
 }
 
@@ -53,6 +52,7 @@
         placeholderImage:[UIImage imageNamed:@"Contacts-icon.png"]];
 }
 - (void)findMergable {
+    btnTemp = _btnEdit;//Retain barButtonItem reference.
   temp = [NSMutableDictionary dictionary];
   mergableContactArr = [NSMutableArray array];
     //Identify Duplicate Contacts
